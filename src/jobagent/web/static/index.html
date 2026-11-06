@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Agent</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Job Agent</div>
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="apply">Apply</button>
+    <button class="tab" data-tab="found">Found jobs</button>
+    <button class="tab" data-tab="applications">Applications</button>
+    <button class="tab" data-tab="setup">Setup</button>
+  </nav>
+  <div id="checks" class="checks"></div>
+</header>
+
+<main>
+  <!-- APPLY -->
+  <section id="tab-apply" class="panel active">
+    <div class="grid">
+      <div class="card">
+        <h2>Jobs to apply for</h2>
+        <label class="field">
+          <span>Paste job links, one per line. A shared Google Sheet or Google Doc link works too.</span>
+          <textarea id="links" rows="7" placeholder="https://job-boards.greenhouse.io/company/jobs/123&#10;https://hiringcafe.com/viewjob/...&#10;https://docs.google.com/spreadsheets/d/..."></textarea>
+        </label>
+        <label class="field">
+          <span>…or upload a spreadsheet (.xlsx, .csv, .txt)</span>
+          <input type="file" id="listfile" accept=".xlsx,.xlsm,.csv,.tsv,.txt">
+        </label>
+        <div class="options">
+          <label class="check"><input type="checkbox" id="dryrun" checked> Dry run <small>fill forms, never submit</small></label>
+          <label class="check"><input type="checkbox" id="auto"> Auto-submit <small>skip review when nothing needs you</small></label>
+        </div>
+        <div class="row">
+          <button id="start" class="primary">Start</button>
+          <span id="apply-msg" class="msg"></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row between">
+          <h2>Now</h2>
+          <button id="stop" class="danger small" hidden>Stop</button>
+        </div>
+        <div id="current" class="current muted">Nothing running.</div>
+        <div id="pending"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Activity</h2>
+      <pre id="log" class="log"></pre>
+    </div>
+  </section>
+
+  <!-- FOUND -->
+  <section id="tab-found" class="panel">
+    <div class="card">
+      <div class="row between">
+        <div>
+          <h2>Found jobs</h2>
+          <p class="muted">From <code>search</code> in your profile: Greenhouse boards, keywords and locations.</p>
+        </div>
+        <div class="row">
+          <button id="search">Search now</button>
+          <button id="apply-selected" class="primary">Apply to selected</button>
+        </div>
+      </div>
+      <div class="table-wrap"><table id="found-table"></table></div>
+    </div>
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section id="tab-applications" class="panel">
+    <div class="card">
+      <h2>Applied, by company</h2>
+      <div id="applied"></div>
+    </div>
+    <div class="card">
+      <h2>Everything the agent has seen</h2>
+      <div class="table-wrap"><table id="jobs-table"></table></div>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="tab-setup" class="panel">
+    <div class="card">
+      <h2>1. Ollama</h2>
+      <div id="ollama"></div>
+    </div>
+    <div class="card">
+      <h2>2. Your profile</h2>
+      <p class="muted">Your details, fixed answers (visa, relocation…), search settings and model. Lines starting with <code>#</code> are notes.</p>
+      <textarea id="profile" rows="22" spellcheck="false" class="code"></textarea>
+      <div class="row"><button id="save-profile" class="primary">Save profile</button><span id="profile-msg" class="msg"></span></div>
+    </div>
+    <div class="card">
+      <h2>3. Your CV</h2>
+      <div id="cv-status" class="muted"></div>
+      <div class="row">
+        <input type="file" id="cvfile" accept=".pdf,.docx,.md,.txt">
+        <button id="upload-cv" class="primary">Upload &amp; read</button>
+        <button id="reparse-cv">Re-read current CV</button>
+        <span id="cv-msg" class="msg"></span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>4. Check what the model read from your CV</h2>
+      <p class="muted">Every tailored CV is built from this. Fix anything wrong and save.</p>
+      <textarea id="cvjson" rows="22" spellcheck="false" class="code"></textarea>
+      <div class="row"><button id="save-cvjson" class="primary">Save</button><span id="cvjson-msg" class="msg"></span></div>
+    </div>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

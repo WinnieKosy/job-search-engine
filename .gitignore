@@ -1,0 +1,24 @@
+# Python / tooling
+.venv/
+__pycache__/
+*.egg-info/
+.DS_Store
+.env
+
+# Everything the agent stores about you: tracker.db (jobs + applications),
+# parsed CV, remembered answers, tailored CVs and cover letters, browser logins.
+data/
+
+# Your profile and CV. Only the example profile is shared.
+config/*
+!config/profile.example.yaml
+
+# Job lists you create (they show where you're applying). Examples stay.
+*.xlsx
+*.xlsm
+*.xls
+*.csv
+*.tsv
+/*.txt
+!/requirements.txt
+!/jobs.example.txt

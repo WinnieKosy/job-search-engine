@@ -1,0 +1,10 @@
+# Direct dependencies, pinned to the versions this project was tested with.
+# Install:  pip install -r requirements.txt && playwright install chromium
+# Also needs Ollama (https://ollama.com) with a model pulled, e.g. `ollama pull qwen3:14b`.
+httpx==0.28.1          # HTTP calls: Ollama, Greenhouse API, page fetching
+playwright==1.64.1     # browser: filling forms, rendering CV/cover-letter PDFs
+PyYAML==6.0.3          # config/profile.yaml
+pypdf==6.21.4          # reading a PDF CV
+python-docx==1.2.0     # reading a .docx CV
+openpyxl==3.1.5        # reading job links from .xlsx spreadsheets
+flask==3.1.2           # the local web UI (jobagent ui)
